@@ -4,6 +4,13 @@ export class Email {
       return false
     }
 
+    const [local] = email.split('@')
+    console.log(local)
+
+    if (local.length > 64) {
+      return false
+    }
+
     return true
   }
 }
