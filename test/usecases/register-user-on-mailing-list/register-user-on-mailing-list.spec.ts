@@ -1,6 +1,6 @@
-import { UserData } from '../../entities/user-data'
-import { UserRepository } from '../ports/user-repository'
-import { RegisterUserOnMailingList } from './register-user-on-mailing-list'
+import { UserData } from '../../../src/entities/user-data'
+import { UserRepository } from '../../../src/usecases/ports/user-repository'
+import { RegisterUserOnMailingList } from '../../../src/usecases/register-user-on-mailing-list/register-user-on-mailing-list'
 import { InMemoryUserRepository } from './repository/in-memory-user-repository'
 
 describe('Register user on mailing list use case', () => {
@@ -8,10 +8,10 @@ describe('Register user on mailing list use case', () => {
     const users: UserData[] = []
 
     const repo: UserRepository = new InMemoryUserRepository(users)
-    const usecase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
+    const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
     const name = 'any_name'
     const email = 'any@email.com'
-    const response = await usecase.perform({ name, email })
+    const response = await useCase.perform({ name, email })
 
     const user = await repo.findUserByEmail(email)
 
@@ -23,10 +23,10 @@ describe('Register user on mailing list use case', () => {
     const users: UserData[] = []
 
     const repo: UserRepository = new InMemoryUserRepository(users)
-    const usecase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
+    const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
     const name = 'any_name'
     const invalidEmail = 'anyemail.com'
-    const response = (await usecase.perform({ name, email: invalidEmail })).value as Error
+    const response = (await useCase.perform({ name, email: invalidEmail })).value as Error
 
     const user = await repo.findUserByEmail(invalidEmail)
 
@@ -39,11 +39,10 @@ describe('Register user on mailing list use case', () => {
     const users: UserData[] = []
 
     const repo: UserRepository = new InMemoryUserRepository(users)
-    const usecase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
+    const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(repo)
     const invalidName = ' '
     const email = 'any@email.com'
-    const response = (await usecase.perform({ name: invalidName, email })).value as Error
-
+    const response = (await useCase.perform({ name: invalidName, email })).value as Error
     const user = await repo.findUserByEmail(email)
 
     expect(user).toBeNull()
