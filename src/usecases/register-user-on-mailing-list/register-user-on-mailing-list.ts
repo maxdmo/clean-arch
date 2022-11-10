@@ -1,6 +1,6 @@
 
-import { InvalidEmailError } from '../../entities/errors/InvalidEmailError'
-import { InvalidNameError } from '../../entities/errors/invalidNameError'
+import { InvalidEmailError } from '../../entities/errors/invalid-email-error'
+import { InvalidNameError } from '../../entities/errors/invalid-name-error'
 import { User } from '../../entities/user'
 import { UserData } from '../../entities/user-data'
 import { Either, left, right } from '../../shared/either'
